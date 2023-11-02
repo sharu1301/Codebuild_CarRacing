@@ -11,12 +11,13 @@ phases:
       docker: 18
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws --version
-      - $(aws ecr get-login --region __ECR_REGION__ --no-include-email)
-      - REPOSITORY_URI=__ACCOUNT_NUMBER__.dkr.ecr.__ECR_REGION__.amazonaws.com/__ECR_REPOSITORY_NAME__
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
+- echo Logging in to Amazon ECR...
+- aws --version
+- $(aws ecr get-login --no-include-email --region ap-southeast-2)
+- REPOSITORY_URI=065757250267.dkr.ecr.ap-southeast-2.amazonaws.com/webonise_image
+- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+- IMAGE_TAG=${COMMIT_HASH:=latest}
+
   build:
     commands:
       - echo Build started on `date`
